@@ -31,7 +31,6 @@ std::string hasData(std::string s) {
 int main()
 {
   uWS::Hub h;
-  int testing = 0;
   PID pid;
   // TODO: Initialize the pid variable.
   pid.Init(0.2, 0.004, 4.0);//0.2, 0.004, 3.0
@@ -64,10 +63,9 @@ int main()
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
 
-          if (testing>1000) {
+          if (cte>1000) {
 			std::string reset_msg = "42[\"reset\",{}]";
 			ws.send(reset_msg.data(), reset_msg.length(), uWS::OpCode::TEXT);
-            testing = 0;
 		  }
 		  else{
 			json msgJson;
@@ -76,7 +74,6 @@ int main()
 			auto msg = "42[\"steer\"," + msgJson.dump() + "]";
 			std::cout << msg << std::endl;
 			ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
-			testing++;
 		  }
         }
       } else {
