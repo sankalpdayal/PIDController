@@ -18,6 +18,12 @@ public:
   double Kd;
 
   /*
+  * Last values
+  */ 
+  double last_cte;
+  bool if_init;
+
+  /*
   * Constructor
   */
   PID();
