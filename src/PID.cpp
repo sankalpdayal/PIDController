@@ -1,3 +1,4 @@
+#include <iostream>
 #include "PID.h"
 
 using namespace std;
@@ -19,7 +20,7 @@ void PID::Init(double _Kp, double _Ki, double _Kd) {
 	d_error = 0;
 	last_cte = 0;
 	if_init = false;
-	cout<<"Coefficients: " << Kp << ', ' << Ki << ', ' << Kd << endl;
+	cout<<"Coefficients: " << Kp << ', ' << Ki << ', ' << Kd <<endl;
 }
 
 void PID::UpdateError(double cte) {
