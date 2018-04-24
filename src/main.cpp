@@ -33,7 +33,7 @@ int main()
   uWS::Hub h;
   PID pid;
   // TODO: Initialize the pid variable.
-  pid.Init(0.2, 0.004, 4.0);//0.2, 0.004, 3.0
+  pid.Init(0.0, 0.0, 0.0);//0.2, 0.004, 3.0
   
   h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
@@ -63,7 +63,7 @@ int main()
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
 
-          if (cte>1000) {
+          if (fabs(cte)>5.0) {
 			std::string reset_msg = "42[\"reset\",{}]";
 			ws.send(reset_msg.data(), reset_msg.length(), uWS::OpCode::TEXT);
 		  }
