@@ -24,7 +24,7 @@ void Twiddle::Init(){
 	error_sum = 0.0;
 	best_avg_error = 0.0;
 	
-	target_duration = 1000;
+	target_duration = 100;
 }
 
 void Twiddle::UpdateRunError(double cte){
