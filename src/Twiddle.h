@@ -20,7 +20,6 @@ public:
   int cond_ind;
   
   int duration;
-  int duration_with_speed;
   int duration_on_track;
   
   int best_duration;

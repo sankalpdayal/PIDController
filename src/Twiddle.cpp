@@ -21,8 +21,6 @@ void Twiddle::Init(){
 	cond_ind = 0;
 	duration = 0;
 	
-	duration_with_speed = 0;
-	
 	duration_on_track = 0;
 	
 	best_duration = 0;
@@ -34,12 +32,9 @@ void Twiddle::Init(){
 
 void Twiddle::UpdateRunError(double cte, double speed){
 	duration++;
-	if (speed>0.5){
+	if (speed>0.5 && fabs(cte)< MAX_CTE){
 		error_sum += cte;	
-		duration_with_speed++;
-		if (fabs(cte)< MAX_CTE){
-			duration_on_track++;
-		}
+		duration_on_track++;
 	}
 	
 	if (duration >= target_duration){
@@ -49,7 +44,6 @@ void Twiddle::UpdateRunError(double cte, double speed){
 
 void Twiddle::ResetRunError(){
 	duration = 0;
-	duration_with_speed = 0;
 	error_sum = 0.0;
 	duration_on_track = 0;
 }
@@ -59,28 +53,27 @@ bool Twiddle::CheckIfNewErrorIsLess(){
 	if (duration_on_track > best_duration)
 	{
 		best_duration = duration_on_track;
-		best_avg_error = error_sum/duration_with_speed;
+		best_avg_error = error_sum/duration_on_track;
 		new_error_is_less = true;
-		if (duration_on_track >= target_duration){
-			target_duration *=2;
+	}
+	if (duration_on_track == best_duration)
+	{
+		if (best_avg_error > error_sum/duration_on_track){
+			best_avg_error = error_sum/duration_on_track;
+			new_error_is_less = true;
 		}
 		
 	}
-	/*if (error_sum/duration_with_speed < best_avg_error){
-		best_avg_error = error_sum/duration_with_speed;
-
-		new_error_is_less = true;
-		if (duration_with_speed >= target_duration){
-			target_duration *=2;
-		}
-	}*/
+	if (duration_on_track >= target_duration-25){
+		target_duration *=2;
+	}
 	return new_error_is_less;
 }
 void Twiddle::UpdateP(){
 	if (!twiddle_init){
 		twiddle_init = true;
-		best_duration = duration_with_speed;
-		best_avg_error = error_sum/duration_with_speed;
+		best_duration = duration_on_track;
+		best_avg_error = error_sum/duration_on_track;
 		p_ind = 0;
 		p[p_ind] += dp[p_ind];
 		cond_ind = 0;
