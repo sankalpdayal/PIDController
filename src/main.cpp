@@ -31,12 +31,12 @@ std::string hasData(std::string s) {
 int main()
 {
   uWS::Hub h;
-  Twiddle twidddle;
+  Twiddle twiddle;
   // TODO: Initialize the pid variable.
-  twidddle.Init();
+  twiddle.Init();
   
   //h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
-  h.onMessage([&twidddle](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
+  h.onMessage([&twiddle](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
@@ -58,19 +58,19 @@ int main()
           * NOTE: Feel free to play around with the throttle and speed. Maybe use
           * another PID controller to control the speed!
           */
-          twidddle.pid.UpdateError(cte);
-		  steer_value = twidddle.pid.TotalError();
+          twiddle.pid.UpdateError(cte);
+		  steer_value = twiddle.pid.TotalError();
 		  
-		  twidddle.UpdateRunError(cte);
+		  twiddle.UpdateRunError(cte);
 		  
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
-		  std::cout << "Duration: " << twidddle.duration << " Error: " << twidddle.error_sum/twidddle.duration << std::endl;
+		  std::cout << "Duration: " << twiddle.duration << " Error: " << twiddle.error_sum/twiddle.duration << std::endl;
 
-          if (twidddle.run_reset) {
-		    twidddle.run_reset = false;
-			twidddle.ResetRunError();
-			pid.Init(twidddle.p[0], twidddle.p[1], twidddle.p[2]);
+          if (twiddle.run_reset) {
+		    twiddle.run_reset = false;
+			twiddle.ResetRunError();
+			twiddle.UpdateP();
 			std::string reset_msg = "42[\"reset\",{}]";
 			ws.send(reset_msg.data(), reset_msg.length(), uWS::OpCode::TEXT);
 		  }
