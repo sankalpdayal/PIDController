@@ -23,6 +23,8 @@ void Twiddle::Init(){
 	
 	duration_with_speed = 0;
 	
+	duration_on_track = 0;
+	
 	best_duration = 0;
 	error_sum = 0.0;
 	best_avg_error = 0.0;
@@ -35,7 +37,11 @@ void Twiddle::UpdateRunError(double cte, double speed){
 	if (speed>0.5){
 		error_sum += cte;	
 		duration_with_speed++;
+		if (fabs(cte)< MAX_CTE){
+			duration_on_track++;
+		}
 	}
+	
 	if (duration >= target_duration){
 		run_reset = true;
 	}
@@ -45,17 +51,29 @@ void Twiddle::ResetRunError(){
 	duration = 0;
 	duration_with_speed = 0;
 	error_sum = 0.0;
+	duration_on_track = 0;
 }
 
 bool Twiddle::CheckIfNewErrorIsLess(){
 	bool new_error_is_less = false;
-	if (error_sum/duration_with_speed < best_avg_error){
+	if (duration_on_track > best_duration)
+	{
+		best_duration = duration_on_track;
 		best_avg_error = error_sum/duration_with_speed;
+		new_error_is_less = true;
+		if (duration_on_track >= target_duration){
+			target_duration *=2;
+		}
+		
+	}
+	/*if (error_sum/duration_with_speed < best_avg_error){
+		best_avg_error = error_sum/duration_with_speed;
+
 		new_error_is_less = true;
 		if (duration_with_speed >= target_duration){
 			target_duration *=2;
 		}
-	}
+	}*/
 	return new_error_is_less;
 }
 void Twiddle::UpdateP(){

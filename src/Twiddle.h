@@ -3,7 +3,7 @@
 
 #include "PID.h"
 
-#define MAX_CTE 5.0
+#define MAX_CTE 4.0
 
 class Twiddle {
 public:
@@ -21,6 +21,7 @@ public:
   
   int duration;
   int duration_with_speed;
+  int duration_on_track;
   
   int best_duration;
   double error_sum;
