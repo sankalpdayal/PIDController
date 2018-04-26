@@ -65,7 +65,7 @@ int main()
 		  twiddle.UpdateRunError(cte);
 		  
           // DEBUG
-          std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
+          std::cout << "CTE: " << cte << " Steering Value: " << steer_value << " Speed: "<< speed << std::endl;
 		  std::cout << "Duration: " << twiddle.duration << " Error: " << twiddle.error_sum/twiddle.duration << std::endl;
 
           if (twiddle.run_reset) {
