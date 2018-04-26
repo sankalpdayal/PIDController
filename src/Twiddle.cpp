@@ -62,6 +62,7 @@ void Twiddle::UpdateP(){
 		cond_ind = 0;
 	}
 	else{
+		std::cout << "P vals:" << p[0] <<"," p[1] <<","p[2] <<std::endl;
 		if (cond_ind == 0){
 			if (this->CheckIfNewErrorIsLess()){
 				dp[p_ind] *= 1.1;
