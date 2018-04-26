@@ -1,6 +1,6 @@
 #include <iostream>
-#include "Twiddle.h"
 #include <math.h>
+#include "Twiddle.h"
 
 using namespace std;
 
@@ -9,7 +9,7 @@ Twiddle::Twiddle() {}
 Twiddle::~Twiddle() {}
 
 void Twiddle::Init(){
-	cout << "Twiddle init"<<endl;
+	std::cout << "Twiddle init"<<std::endl;
 	iter = 0;
 	for (int i=0; i<3 ;i++){
 		p[i] = 0;

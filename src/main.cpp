@@ -72,7 +72,7 @@ int main()
           if (twidddle.run_reset) {
 		    twidddle.run_reset = false;
 			twidddle.ResetRunError();
-			 pid.Init(twidddle.p[0], twidddle.p[1], twidddle.p[2]);
+			pid.Init(twidddle.p[0], twidddle.p[1], twidddle.p[2]);
 			std::string reset_msg = "42[\"reset\",{}]";
 			ws.send(reset_msg.data(), reset_msg.length(), uWS::OpCode::TEXT);
 		  }
