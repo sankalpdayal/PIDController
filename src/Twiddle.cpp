@@ -30,9 +30,10 @@ void Twiddle::Init(){
 void Twiddle::UpdateRunError(double cte){
 	duration++;
 	error_sum += cte;
-	if (duration >= TARGET_DURATION)
+	if (duration >= target_duration){
 		target_duration *=2;
 		run_reset = true;
+	}
 }
 
 void Twiddle::ResetRunError(){
