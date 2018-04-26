@@ -23,12 +23,15 @@ void Twiddle::Init(){
 	best_duration = 0;
 	error_sum = 0.0;
 	best_avg_error = 0.0;
+	
+	target_duration = 1000;
 }
 
 void Twiddle::UpdateRunError(double cte){
 	duration++;
 	error_sum += cte;
-	if (fabs(cte) > MAX_CTE || duration == TARGET_DURATION)
+	if (duration >= TARGET_DURATION)
+		target_duration *=2;
 		run_reset = true;
 }
 
@@ -39,16 +42,9 @@ void Twiddle::ResetRunError(){
 
 bool Twiddle::CheckIfNewErrorIsLess(){
 	bool new_error_is_less = false;
-	if (duration < TARGET_DURATION){
-		if (duration > best_duration){
-			duration = best_duration;
-			new_error_is_less = true;
-		}
-	}else{
-		if (error_sum/duration < best_avg_error){
-			best_avg_error = error_sum/duration;
-			new_error_is_less = true;
-		}
+	if (error_sum/duration < best_avg_error){
+		best_avg_error = error_sum/duration;
+		new_error_is_less = true;
 	}
 	return new_error_is_less;
 }

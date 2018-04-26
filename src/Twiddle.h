@@ -3,7 +3,6 @@
 
 #include "PID.h"
 
-#define TARGET_DURATION 10000
 #define MAX_CTE 5.0
 
 class Twiddle {
@@ -24,6 +23,8 @@ public:
   int best_duration;
   double error_sum;
   double best_avg_error;  
+  
+  int target_duration;
   /*
   * Constructor
   */
