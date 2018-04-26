@@ -31,7 +31,6 @@ void Twiddle::UpdateRunError(double cte){
 	duration++;
 	error_sum += cte;
 	if (duration >= target_duration){
-		target_duration *=2;
 		run_reset = true;
 	}
 }
@@ -46,6 +45,9 @@ bool Twiddle::CheckIfNewErrorIsLess(){
 	if (error_sum/duration < best_avg_error){
 		best_avg_error = error_sum/duration;
 		new_error_is_less = true;
+		if (duration >= target_duration){
+			target_duration *=2;
+		}
 	}
 	return new_error_is_less;
 }
