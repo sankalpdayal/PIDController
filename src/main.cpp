@@ -1,7 +1,6 @@
 #include <uWS/uWS.h>
 #include <iostream>
 #include "json.hpp"
-#include "PID.h"
 #include "Twiddle.h"
 #include <math.h>
 
@@ -32,13 +31,12 @@ std::string hasData(std::string s) {
 int main()
 {
   uWS::Hub h;
-  PID pid;
   Twiddle twidddle;
   // TODO: Initialize the pid variable.
   twidddle.Init();
-  pid.Init(twidddle.p[0], twidddle.p[1], twidddle.p[2]);//0.2, 0.004, 3.0
   
-  h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
+  //h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
+  h.onMessage([&twidddle](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
@@ -60,8 +58,8 @@ int main()
           * NOTE: Feel free to play around with the throttle and speed. Maybe use
           * another PID controller to control the speed!
           */
-          pid.UpdateError(cte);
-		  steer_value = pid.TotalError();
+          twidddle.pid.UpdateError(cte);
+		  steer_value = twidddle.pid.TotalError();
 		  
 		  twidddle.UpdateRunError(cte);
 		  

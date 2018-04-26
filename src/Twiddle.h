@@ -1,11 +1,15 @@
 #ifndef TWIDDLE_H
 #define TWIDDLE_H
 
+#include "PID.h"
+
 #define TARGET_DURATION 1000
 #define MAX_CTE 5.0
 
 class Twiddle {
 public:
+  
+  PID pid;
   int iter;
   
   double p[3];
@@ -42,5 +46,7 @@ public:
   * Reset error and duration
   */
   void ResetRunError();
+  
+  void UpdateP();
 };
-#endif /* PID_H */
+#endif /* TWIDDLE_H */

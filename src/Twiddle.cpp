@@ -20,6 +20,8 @@ void Twiddle::Init(){
 	cond_ind = 0;
 	duration = 0;
 	error_sum = 0.0;
+	
+	pid.Init(twidddle.p[0], twidddle.p[1], twidddle.p[2]);//0.2, 0.004, 3.0
 }
 
 void Twiddle::UpdateRunError(double cte){
@@ -32,4 +34,8 @@ void Twiddle::UpdateRunError(double cte){
 void Twiddle::ResetRunError(){
 	duration = 0;
 	error_sum = 0.0;
+}
+
+void Twiddle::UpdateP(){
+	pid.Init(twidddle.p[0], twidddle.p[1], twidddle.p[2]);
 }
