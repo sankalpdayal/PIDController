@@ -50,5 +50,7 @@ public:
   void ResetRunError();
   
   void UpdateP();
+  
+  bool CheckIfNewErrorIsLess();
 };
 #endif /* TWIDDLE_H */
