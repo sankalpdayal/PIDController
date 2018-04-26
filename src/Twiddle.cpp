@@ -12,8 +12,8 @@ void Twiddle::Init(){
 	std::cout << "Twiddle init"<<std::endl;
 	iter = 0;
 	for (int i=0; i<3 ;i++){
-		p[i] = 0;
-		dp[i] = 0;
+		p[i] = 0.0;
+		dp[i] = 1.0;
 	}
 	run_reset = false;
 	twiddle_init = false;
