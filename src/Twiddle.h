@@ -20,6 +20,8 @@ public:
   int cond_ind;
   
   int duration;
+  int duration_with_speed;
+  
   int best_duration;
   double error_sum;
   double best_avg_error;  
@@ -43,7 +45,7 @@ public:
    /*
   * Update error and duration
   */
-  void UpdateRunError(double cte);
+  void UpdateRunError(double cte, double speed);
   
   /*
   * Reset error and duration

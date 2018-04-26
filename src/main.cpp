@@ -62,7 +62,7 @@ int main()
           twiddle.pid.UpdateError(cte);
 		  steer_value = twiddle.pid.TotalError();
 		  
-		  twiddle.UpdateRunError(cte);
+		  twiddle.UpdateRunError(cte, speed);
 		  
           // DEBUG
           std::cout << "CTE: " << cte << " Steering Value: " << steer_value << " Speed: "<< speed << std::endl;
