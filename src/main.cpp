@@ -34,6 +34,7 @@ int main()
   Twiddle twiddle;
   // TODO: Initialize the pid variable.
   twiddle.Init();
+  twiddle.pid.Init(twiddle.p[0],twiddle.p[1], twiddle.p[2]);//0.2, 0.004, 3.0
   
   //h.onMessage([&pid](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
   h.onMessage([&twiddle](uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
@@ -69,8 +70,8 @@ int main()
 
           if (twiddle.run_reset) {
 		    twiddle.run_reset = false;
-			twiddle.ResetRunError();
 			twiddle.UpdateP();
+			twiddle.pid.Init(twiddle.p[0],twiddle.p[1], twiddle.p[2]);
 			std::string reset_msg = "42[\"reset\",{}]";
 			ws.send(reset_msg.data(), reset_msg.length(), uWS::OpCode::TEXT);
 		  }

@@ -16,12 +16,13 @@ void Twiddle::Init(){
 		dp[i] = 0;
 	}
 	run_reset = false;
+	twiddle_init = false;
 	p_ind = 0;
 	cond_ind = 0;
 	duration = 0;
+	best_duration = 0;
 	error_sum = 0.0;
-	
-	pid.Init(p[0],p[1], p[2]);//0.2, 0.004, 3.0
+	best_avg_error = 0.0;
 }
 
 void Twiddle::UpdateRunError(double cte){
@@ -36,6 +37,63 @@ void Twiddle::ResetRunError(){
 	error_sum = 0.0;
 }
 
+bool Twiddle::CheckIfNewErrorIsLess(){
+	bool new_error_is_less = false;
+	if (duration < TARGET_DURATION){
+		if (duration > best_duration){
+			duration = best_duration;
+			new_error_is_less = true;
+		}
+	}else{
+		if (error_sum/duration < best_avg_error){
+			best_avg_error = error_sum/duration;
+			new_error_is_less = true;
+		}
+	}
+	return new_error_is_less;
+}
 void Twiddle::UpdateP(){
-	pid.Init(p[0],p[1], p[2]);
+	if (!twiddle_init){
+		twiddle_init = true;
+		best_duration = duration;
+		best_avg_error = error_sum/duration;
+		p_ind = 0;
+		p[p_ind] += dp[p_ind];
+		cond_ind = 0;
+	}
+	else{
+		if (cond_ind == 0){
+			if (this->CheckIfNewErrorIsLess()){
+				dp[p_ind] *= 1.1;
+				p_ind +=1;
+				if (p_ind==3){
+					p_ind = 0;
+					iter++;
+				}
+				p[p_ind] += dp[p_ind];
+				cond_ind = 0;
+			}
+			else{
+				p[p_ind] -= 2*dp[p_ind];
+				cond_ind = 1;
+			}
+		}
+		if (cond_ind == 1){
+			if (this->CheckIfNewErrorIsLess()){
+				dp[p_ind] *= 1.1;
+			}
+			else{
+				p[p_ind] += dp[p_ind];
+				dp[p_ind] *= 0.9;
+			}
+			p_ind +=1;
+			if (p_ind==3){
+				p_ind = 0;
+				iter++;
+			}
+			p[p_ind] += dp[p_ind];
+			cond_ind = 0;
+		}
+	}
+	this->ResetRunError();
 }
