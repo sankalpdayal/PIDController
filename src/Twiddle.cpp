@@ -29,7 +29,7 @@ void Twiddle::Init(){
 	
 	target_duration = 100;
 	
-	debugfile.open("Debug.txt");
+	debugfile.open("../Debug.txt");
 }
 
 void Twiddle::UpdateRunError(double cte, double speed){
@@ -77,7 +77,7 @@ bool Twiddle::CheckIfNewErrorIsLess(){
 
 void Twiddle::WriteDebugOutput()
 {
-	debugfile << p[0] << p[1] << p[2] << p[0] << p_ind << cond_ind << best_duration << best_avg_error << std::endl;
+	debugfile << p[0] << "," << p[1] << "," << p[2] << "," << p_ind << "," << cond_ind << "," << best_duration << "," << best_avg_error << std::endl;
 }
 
 void Twiddle::UpdateP(){
