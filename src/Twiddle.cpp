@@ -140,9 +140,8 @@ void Twiddle::UpdateP(){
 
 bool Twiddle::ReadParameters(){
 {
-    string filename = "../Debug.txt";
     ifstream fin;
-    fin.open(filename);
+    fin.open("../Debug.txt");
 	bool filefound = false;
     if(fin.is_open()) {
 		filefound = true;
