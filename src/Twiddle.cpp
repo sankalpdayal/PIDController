@@ -179,6 +179,17 @@ bool Twiddle::ReadParameters()
 		cond_ind = int(temp[5]);
 		best_duration = int(temp[6]);
 		best_avg_error = temp[7];
+		
+		run_reset = false;
+		twiddle_init = true;
+		
+		duration = 0;
+		duration_on_track = 0;
+		error_sum = 0.0;
+		static_duration = 0;
+		
+		target_duration = best_duration + 25;
+		
 		debugfile.open("../Debug.txt",std::fstream::app);
     }
 
