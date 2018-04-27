@@ -35,7 +35,7 @@ void Twiddle::Init(){
 void Twiddle::UpdateRunError(double cte, double speed){
 	duration++;
 	if (speed>0.5 && fabs(cte)< MAX_CTE){
-		error_sum += cte;	
+		error_sum += fabs(cte);	
 		duration_on_track++;
 	}
 	
