@@ -25,7 +25,6 @@ int main()
 		}
 
         fin.close();
-		cout<<lastline<<endl;
 		size_t pos = 0;
 		std::string token;
 		double temp[8];
@@ -34,7 +33,6 @@ int main()
 		lastline += ",";
 		while ((pos = lastline.find(delimiter)) != std::string::npos) {
 			token = lastline.substr(0, pos);
-			cout<<token<<endl;
 			temp[ind] = atof(token.c_str());
 			ind++;
 			lastline.erase(0, pos + delimiter.length());
