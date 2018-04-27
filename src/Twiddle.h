@@ -28,7 +28,7 @@ public:
   
   int target_duration;
   
-  ofstream debugfile;
+  std::ofstream debugfile;
   /*
   * Constructor
   */
