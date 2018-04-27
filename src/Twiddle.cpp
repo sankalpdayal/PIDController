@@ -95,7 +95,7 @@ void Twiddle::UpdateP(){
 		if (cond_ind == 0){
 			if (this->CheckIfNewErrorIsLess()){
 				dp[p_ind] *= 1.1;
-				p_ind +=1;
+				p_ind++;
 				if (p_ind==3){
 					p_ind = 0;
 					iter++;
@@ -116,7 +116,7 @@ void Twiddle::UpdateP(){
 				p[p_ind] += dp[p_ind];
 				dp[p_ind] *= 0.9;
 			}
-			p_ind +=1;
+			p_ind++;
 			if (p_ind==3){
 				p_ind = 0;
 				iter++;
