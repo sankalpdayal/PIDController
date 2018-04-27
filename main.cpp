@@ -45,6 +45,7 @@ int main()
 		std::string delimiter = ",";
 		while ((pos = s.find(delimiter)) != std::string::npos) {
 			token = s.substr(0, pos);
+			cout<<token<<endl;
 			temp[ind] = atof(token.c_str());
 			ind++;
 			s.erase(0, pos + delimiter.length());
