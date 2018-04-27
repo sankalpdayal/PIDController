@@ -36,7 +36,7 @@ int main()
 			cout<<token<<endl;
 			temp[ind] = atof(token.c_str());
 			ind++;
-			s.erase(0, pos + delimiter.length());
+			lastline.erase(0, pos + delimiter.length());
 		}
 		double p[3];
 		p[0] = temp[0];
