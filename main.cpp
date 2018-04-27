@@ -5,6 +5,8 @@
 #include <fstream>
 #include <string>
 
+using namespace std;
+
 int main(){
 {
     string filename = "Debug.txt";
@@ -48,9 +50,10 @@ int main(){
 			ind++;
 			s.erase(0, pos + delimiter.length());
 		}
-		double p[0] = temp[0];
-		double p[1] = temp[1];
-		double p[2] = temp[2];
+		double p[3];
+		p[0] = temp[0];
+		p[1] = temp[1];
+		p[2] = temp[2];
 		int iter = int(temp[3]);
 		int p_ind = int(temp[4]);
 		int cond_ind = int(temp[5]);
