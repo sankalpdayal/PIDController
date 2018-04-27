@@ -1,3 +1,9 @@
+#include <iostream>
+#include <math.h>
+#include <sstream>
+#include <stdlib.h>
+#include <fstream>
+
 int main(){
 {
     string filename = "Debug.txt";
