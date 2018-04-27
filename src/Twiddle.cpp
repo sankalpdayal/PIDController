@@ -81,6 +81,10 @@ bool Twiddle::CheckIfNewErrorIsLess(){
 	}
 	if (duration_on_track >= target_duration-25){
 		target_duration *=2;
+		if (target_duration > 10000)
+		{
+			target_duration = 10000;
+		}
 	}
 	if (new_error_is_less)
 		this->WriteDebugOutput();
@@ -90,7 +94,7 @@ bool Twiddle::CheckIfNewErrorIsLess(){
 
 void Twiddle::WriteDebugOutput()
 {
-	debugfile << p[0] << "," << p[1] << "," << p[2] << "," << iter << "," << p_ind << "," << cond_ind << "," << best_duration << "," << best_avg_error << std::endl;
+	debugfile << p[0] << "," << p[1] << "," << p[2] << "," << iter << "," << p_ind << "," << cond_ind << "," << best_duration << "," << best_avg_error << "," << target_duration << std::endl;
 }
 
 void Twiddle::UpdateP(){
@@ -161,7 +165,7 @@ bool Twiddle::ReadParameters()
         fin.close();
 		size_t pos = 0;
 		std::string token;
-		double temp[8];
+		double temp[9];
 		int ind = 0;
 		std::string delimiter = ",";
 		lastline += ",";
@@ -179,6 +183,7 @@ bool Twiddle::ReadParameters()
 		cond_ind = int(temp[5]);
 		best_duration = int(temp[6]);
 		best_avg_error = temp[7];
+		target_duration = int(temp[8]);
 		
 		run_reset = false;
 		twiddle_init = true;
@@ -187,8 +192,7 @@ bool Twiddle::ReadParameters()
 		duration_on_track = 0;
 		error_sum = 0.0;
 		static_duration = 0;
-		
-		target_duration = best_duration + 500;
+
 		
 		debugfile.open("../Debug.txt",std::fstream::app);
     }
