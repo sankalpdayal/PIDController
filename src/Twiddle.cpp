@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <math.h>
 #include "Twiddle.h"
 
@@ -28,6 +29,8 @@ void Twiddle::Init(){
 	best_avg_error = 0.0;
 	
 	target_duration = 100;
+	
+	debugfile.open("Debug.txt");
 }
 
 void Twiddle::UpdateRunError(double cte, double speed){
@@ -67,13 +70,23 @@ bool Twiddle::CheckIfNewErrorIsLess(){
 	if (duration_on_track >= target_duration-25){
 		target_duration *=2;
 	}
+	if (new_error_is_less)
+		this->WriteDebugOutput();
+	
 	return new_error_is_less;
 }
+
+void Twiddle::WriteDebugOutput()
+{
+	debugfile << p[0] << p[1] << p[2] << p[0] << p_ind << cond_ind << best_duration << best_avg_error << std::endl;
+}
+
 void Twiddle::UpdateP(){
 	if (!twiddle_init){
 		twiddle_init = true;
 		best_duration = duration_on_track;
 		best_avg_error = error_sum/duration_on_track;
+		this->WriteDebugOutput();
 		p_ind = 0;
 		p[p_ind] += dp[p_ind];
 		cond_ind = 0;

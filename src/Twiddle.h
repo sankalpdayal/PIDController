@@ -27,6 +27,8 @@ public:
   double best_avg_error;  
   
   int target_duration;
+  
+  ofstream debugfile;
   /*
   * Constructor
   */
@@ -55,5 +57,7 @@ public:
   void UpdateP();
   
   bool CheckIfNewErrorIsLess();
+  
+  void WriteDebugOutput();
 };
 #endif /* TWIDDLE_H */
