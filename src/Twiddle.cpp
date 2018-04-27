@@ -28,6 +28,7 @@ void Twiddle::Init(){
 	best_avg_error = 0.0;
 	
 	target_duration = 100;
+	static_duration = 0;
 	
 	debugfile.open("../Debug.txt");
 }
@@ -38,8 +39,14 @@ void Twiddle::UpdateRunError(double cte, double speed){
 		error_sum += fabs(cte);	
 		duration_on_track++;
 	}
+	if (speed<=0.5){
+		static_duration++;
+	} 
+	else{
+		static_duration = 0;
+	}
 	
-	if (duration >= target_duration){
+	if (duration >= target_duration || static_duration == 100){
 		run_reset = true;
 	}
 }
@@ -48,6 +55,7 @@ void Twiddle::ResetRunError(){
 	duration = 0;
 	error_sum = 0.0;
 	duration_on_track = 0;
+	static_duration = 0;
 }
 
 bool Twiddle::CheckIfNewErrorIsLess(){

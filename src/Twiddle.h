@@ -21,6 +21,7 @@ public:
   
   int duration;
   int duration_on_track;
+  int static_duration;
   
   int best_duration;
   double error_sum;
