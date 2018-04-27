@@ -60,5 +60,7 @@ public:
   bool CheckIfNewErrorIsLess();
   
   void WriteDebugOutput();
+  
+  bool ReadParameters();
 };
 #endif /* TWIDDLE_H */
