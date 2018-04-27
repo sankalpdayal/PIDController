@@ -17,7 +17,7 @@ int main()
         std::string s;
 		while (std::getline(fin, s))
 		{
-			std::istringstream iss(line);
+			std::istringstream iss(s);
 			// process pair (a,b)
 		}
 
