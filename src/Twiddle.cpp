@@ -179,6 +179,7 @@ bool Twiddle::ReadParameters()
 		cond_ind = int(temp[5]);
 		best_duration = int(temp[6]);
 		best_avg_error = temp[7];
+		debugfile.open("../Debug.txt",std::fstream::app);
     }
 
     return filefound;
