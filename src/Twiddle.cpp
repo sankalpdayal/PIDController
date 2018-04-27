@@ -188,7 +188,7 @@ bool Twiddle::ReadParameters()
 		error_sum = 0.0;
 		static_duration = 0;
 		
-		target_duration = best_duration + 25;
+		target_duration = best_duration + 500;
 		
 		debugfile.open("../Debug.txt",std::fstream::app);
     }
