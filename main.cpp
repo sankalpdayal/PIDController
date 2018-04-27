@@ -14,23 +14,25 @@ int main()
 	bool filefound = false;
     if(fin.is_open()) {
 		filefound = true;
-        std::string s;
+        std::string s, lastline;
 		while (std::getline(fin, s))
 		{
-			std::istringstream iss(s);
-			cout<<s<<endl;
+			if (s.length() > 5)
+			{
+				lastline = s;
+			}
 			// process pair (a,b)
 		}
 
         fin.close();
-		cout<<s<<endl;
+		cout<<lastline<<endl;
 		size_t pos = 0;
 		std::string token;
 		double temp[8];
 		int ind = 0;
 		std::string delimiter = ",";
-		while ((pos = s.find(delimiter)) != std::string::npos) {
-			token = s.substr(0, pos);
+		while ((pos = lastline.find(delimiter)) != std::string::npos) {
+			token = lastline.substr(0, pos);
 			cout<<token<<endl;
 			temp[ind] = atof(token.c_str());
 			ind++;
