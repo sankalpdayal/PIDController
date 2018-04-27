@@ -37,12 +37,12 @@ int main()
         getline(fin,s);                      // Read the current line
 
         fin.close();
-		
+		cout<<s<<endl;
 		size_t pos = 0;
 		std::string token;
 		double temp[8];
 		int ind = 0;
-		std::string delimiter = ",";
+		std::string delimiter = ',';
 		while ((pos = s.find(delimiter)) != std::string::npos) {
 			token = s.substr(0, pos);
 			cout<<token<<endl;
