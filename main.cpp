@@ -3,6 +3,7 @@
 #include <sstream>
 #include <stdlib.h>
 #include <fstream>
+#include <string>
 
 int main(){
 {
