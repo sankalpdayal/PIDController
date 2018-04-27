@@ -24,16 +24,19 @@ void Twiddle::Init(){
 	twiddle_init = false;
 	p_ind = 0;
 	cond_ind = 0;
+	
 	duration = 0;
-	
 	duration_on_track = 0;
-	
+	target_duration = 100;
+	static_duration = 0;
 	best_duration = 0;
+	
 	error_sum = 0.0;
 	best_avg_error = 0.0;
 	
-	target_duration = 100;
-	static_duration = 0;
+	speed_sum = 0.0;
+	best_avg_speed = 0.0;
+	
 	
 	debugfile.open("../Debug.txt");
 }
@@ -41,7 +44,8 @@ void Twiddle::Init(){
 void Twiddle::UpdateRunError(double cte, double speed){
 	duration++;
 	if (speed>0.5 && fabs(cte)< MAX_CTE){
-		error_sum += fabs(cte);	
+		error_sum += fabs(cte);
+		speed_sum += fabs(speed);
 		duration_on_track++;
 	}
 	if (speed<=0.5){
@@ -58,9 +62,12 @@ void Twiddle::UpdateRunError(double cte, double speed){
 
 void Twiddle::ResetRunError(){
 	duration = 0;
-	error_sum = 0.0;
 	duration_on_track = 0;
 	static_duration = 0;
+	
+	error_sum = 0.0;
+	
+	speed_sum = 0.0;
 }
 
 bool Twiddle::CheckIfNewErrorIsLess(){
@@ -73,17 +80,28 @@ bool Twiddle::CheckIfNewErrorIsLess(){
 	}
 	if (duration_on_track == best_duration)
 	{
-		if (best_avg_error > error_sum/duration_on_track){
-			best_avg_error = error_sum/duration_on_track;
-			new_error_is_less = true;
+		double avg_error_current_run = error_sum/duration_on_track;
+		if (avg_error_current_run < 0.15)
+		{
+			double avg_speed_current_run = speed_sum/duration_on_track;
+			if (avg_speed_current_run > best_avg_speed){
+				best_avg_speed = avg_speed_current_run;
+				new_error_is_less = true;
+			}
+		}
+		else{
+			if (best_avg_error > avg_error_current_run){
+				best_avg_error = avg_error_current_run;
+				new_error_is_less = true;
+			}
 		}
 		
 	}
 	if (duration_on_track >= target_duration-25){
 		target_duration *=2;
-		if (target_duration > 10000)
+		if (target_duration > 6400)
 		{
-			target_duration = 10000;
+			target_duration = 6400;
 		}
 	}
 	if (new_error_is_less)
@@ -94,7 +112,7 @@ bool Twiddle::CheckIfNewErrorIsLess(){
 
 void Twiddle::WriteDebugOutput()
 {
-	debugfile << p[0] << "," << p[1] << "," << p[2] << "," << iter << "," << p_ind << "," << cond_ind << "," << best_duration << "," << best_avg_error << "," << target_duration << std::endl;
+	debugfile << p[0] << "," << p[1] << "," << p[2] << "," << dp[0] << "," << dp[1] << "," << dp[2] << "," << iter << "," << p_ind << "," << cond_ind << "," << best_duration << "," << best_avg_error << "," << best_avg_speed << "," << target_duration << std::endl;
 }
 
 void Twiddle::UpdateP(){
@@ -165,7 +183,7 @@ bool Twiddle::ReadParameters()
         fin.close();
 		size_t pos = 0;
 		std::string token;
-		double temp[9];
+		double temp[13];
 		int ind = 0;
 		std::string delimiter = ",";
 		lastline += ",";
@@ -178,12 +196,16 @@ bool Twiddle::ReadParameters()
 		p[0] = temp[0];
 		p[1] = temp[1];
 		p[2] = temp[2];
-		iter = int(temp[3]);
-		p_ind = int(temp[4]);
-		cond_ind = int(temp[5]);
-		best_duration = int(temp[6]);
-		best_avg_error = temp[7];
-		target_duration = int(temp[8]);
+		dp[0] = temp[3];
+		dp[1] = temp[4];
+		dp[2] = temp[5];
+		iter = int(temp[6]);
+		p_ind = int(temp[7]);
+		cond_ind = int(temp[8]);
+		best_duration = int(temp[9]);
+		best_avg_error = temp[10];
+		best_avg_speed = temp[11];
+		target_duration = int(temp[12]);
 		
 		run_reset = false;
 		twiddle_init = true;

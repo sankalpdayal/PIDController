@@ -20,14 +20,17 @@ public:
   int cond_ind;
   
   int duration;
+  int target_duration;
   int duration_on_track;
   int static_duration;
-  
   int best_duration;
+  
   double error_sum;
   double best_avg_error;  
   
-  int target_duration;
+  double speed_sum;
+  double best_avg_speed;
+  
   
   std::ofstream debugfile;
   /*
