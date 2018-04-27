@@ -46,7 +46,7 @@ void Twiddle::UpdateRunError(double cte, double speed){
 		static_duration = 0;
 	}
 	
-	if (duration >= target_duration || static_duration == 100){
+	if (duration >= target_duration || (duration > 1000 && static_duration == 100)){
 		run_reset = true;
 	}
 }
