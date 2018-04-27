@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int main(){
+int main()
 {
     ifstream fin;
     fin.open("Debug.txt");
@@ -59,8 +59,6 @@ int main(){
 		int best_duration = int(temp[6]);
 		double best_avg_error = temp[7];
 		cout << p[0] << "," << p[1] << "," << p[2] << "," << iter << "," << p_ind << "," << cond_ind << "," << best_duration << "," << best_avg_error << std::endl;
-
     }
-
     return 0;
 }
