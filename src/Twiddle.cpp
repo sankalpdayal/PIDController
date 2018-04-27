@@ -77,7 +77,7 @@ bool Twiddle::CheckIfNewErrorIsLess(){
 
 void Twiddle::WriteDebugOutput()
 {
-	debugfile << p[0] << "," << p[1] << "," << p[2] << "," << p_ind << "," << cond_ind << "," << best_duration << "," << best_avg_error << std::endl;
+	debugfile << p[0] << "," << p[1] << "," << p[2] << "," << iter << "," << p_ind << "," << cond_ind << "," << best_duration << "," << best_avg_error << std::endl;
 }
 
 void Twiddle::UpdateP(){
