@@ -31,6 +31,7 @@ int main()
 		double temp[8];
 		int ind = 0;
 		std::string delimiter = ",";
+		lastline += ",";
 		while ((pos = lastline.find(delimiter)) != std::string::npos) {
 			token = lastline.substr(0, pos);
 			cout<<token<<endl;
