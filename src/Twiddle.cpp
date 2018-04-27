@@ -2,6 +2,7 @@
 #include <math.h>
 #include <sstream>
 #include <stdlib.h>
+#include <string>
 #include "Twiddle.h"
 
 using namespace std;
@@ -140,7 +141,7 @@ void Twiddle::UpdateP(){
 	this->ResetRunError();
 }
 
-bool Twiddle::ReadParameters(){
+bool Twiddle::ReadParameters()
 {
     ifstream fin;
     fin.open("../Debug.txt");
