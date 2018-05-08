@@ -104,14 +104,21 @@ The state of the twiddle algorithm can be defined by the following values
 
 All these values are stored in a text file `Debug.txt` which are read whenever next time Twiddle intializes and appeded whenever Twiddle algorithm finds a run better than previous best.  
 
-## Evolution of PID Parameters with change of Error Function
+## Reflection
+### Relationship of PID Parameters with behavior of Car
+If only P gain is very high, the car sways alot on the road and eventually bounces off the track. Hence just using P gain was not enough. Increaseing the D gain was useful in keeping the road at least on track but then on turns,
+it would again go off the track. There was no evident improvemnent on increasing the gain for I. This could be because there isnt any bias error. Since tuning the gains together manually was very difficult I implemented the twiddle 
+algorithm and defined the error function combining all the parameters to optimize.
+
+### Tuning of PID Parameters with the Error Function
 In the start of twiddle algorithm for very first time, the car finds it very difficult to stay on track. The error function is kept to maximise the on track duration.
 Slowly the car starts learning to stay on track as the parameters get updated.
 Whenever the car is able to achieve target duration, the target duration is doubled. This happens till target duration is large enough to cover at least one lap. At this stage the car is 
 able to completed lap without getting off track for a long time. Hence target duration is not increased further and the error function now is changed to reduce average CTE. Once the 
 average CTE also becomes low enough then the emphasis is done on maximizing speed. Hence then the error function is changed to maximize speed.
 
-## Results and Observations
+
+## Results fo Simulration
 After running the twiddle algorithm for considerably long time, the twiddle had updated parameters that enabled the car to remain on track very effectively. Following video shows how the car navigated with the final chosen parameters. 
 
 [![Results of PID Run](http://img.youtube.com/vi/hpGvvLTV8gA/0.jpg)](http://www.youtube.com/watch?v=hpGvvLTV8gA)
