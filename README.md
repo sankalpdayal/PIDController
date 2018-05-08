@@ -89,7 +89,7 @@ Following modifications were done in the starter code.
 	5. Added call to methods to get steering value from PID.
 	6. Implemented method to check if the run needs to reset and if yes, added calls to methods to update gains, reset run error of twiddle, initialization of PID, and sending reset command to simulator.
 6. `CMakeLists.txt`
-	1. To include Twiddle.cpp during compilation, updated `set()` to set(sources src/PID.cpp src/main.cpp src/Twiddle.cpp).
+	1. To include Twiddle.cpp during compilation, updated `set()` to `set(sources src/PID.cpp src/main.cpp src/Twiddle.cpp)`.
 
 ## Logging
 The state of the twiddle algorithm can be defined by the following values
@@ -112,7 +112,7 @@ able to completed lap without getting off track for a long time. Hence target du
 average CTE also becomes low enough then the emphasis is done on maximizing speed. Hence then the error function is changed to maximize speed.
 
 ## Results and Observations
-After running the twiddle algorith for considerable long time, the car was able to remain on track very precisely. Following video shows how the car ran with the final chosen parameters. 
+After running the twiddle algorithm for considerably long time, the twiddle had updated parameters that enabled the car to remain on track very effectively. Following video shows how the car navigated with the final chosen parameters. 
 
 [![Results of PID Run](http://img.youtube.com/vi/hpGvvLTV8gA/0.jpg)](http://www.youtube.com/watch?v=hpGvvLTV8gA)
 
