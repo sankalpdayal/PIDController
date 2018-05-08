@@ -118,11 +118,12 @@ able to completed lap without getting off track for a long time. Hence target du
 average CTE also becomes low enough then the emphasis is done on maximizing speed. Hence then the error function is changed to maximize speed.
 
 
-## Results fo Simulration
-After running the twiddle algorithm for considerably long time, the twiddle had updated parameters that enabled the car to remain on track very effectively. Following video shows how the car navigated with the final chosen parameters. 
+## Results fo Simulation
+I found that the results are sensitive to the mode of simulater. I have chosen screen as 1400 x 1050 and graphics as fastest. After running the twiddle algorithm for considerably long time, the twiddle had updated parameters that enabled the car to remain on track very effectively. 
+Also I noticed that during recording, the PC was getting stuck and hence it was affecting the navigation of the car and hence performance was little poorer when recording was happeneing in background. 
+Following video shows how the car navigated with the final chosen parameters. 
 
-[![Results of PID Run](http://img.youtube.com/vi/hpGvvLTV8gA/0.jpg)](http://www.youtube.com/watch?v=hpGvvLTV8gA)
-
+[![Results of PID Run](http://img.youtube.com/vi/1yy7oVJWej8/0.jpg)](http://www.youtube.com/watch?v=1yy7oVJWej8)
 It can be observed that the car was able to remain on track thoughout the run.
 
 ## Scope of improvement
